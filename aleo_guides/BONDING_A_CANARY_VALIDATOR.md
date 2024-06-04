@@ -69,7 +69,7 @@ Each validator on CanaryNet must have a valid Aleo address.  Record this address
 
 ### Generate Delegator Addresses
 
-using `snarkos account new`, generate new Aleo addresses for the Foundation and record them.  You will need one new address for each validator you wish to delegate to.  These are called delegator addresses.  One delegator address can only delegate to one address at a time.  It is important that you keep the private keys recorded for each delegator address.
+Using `snarkos account new`, generate new Aleo addresses for the Foundation and record them.  You will need one new address for each validator you wish to delegate to.  These are called delegator addresses.  One delegator address can only delegate to one address at a time.  It is important that you keep the private keys recorded for each delegator address.
 
 ### Fund Each Delegator Address 
 
