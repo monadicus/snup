@@ -2,6 +2,12 @@
 
 *NOTE:  This document is not specific to `snarkops`.  It is intended for the Aleo CanaryNet community members who are running generic `snarkOS` validator and nodes unmanaged by `snarkops`.*
 
+---
+
+# tl;dr
+
+Note:  If you want all the hows and whys, go to the [Full Details](#full-details) section.  
+
 To fund, delegate, and bond validators, use this checklist of checklists and their specific scripts:
 
 - [ ] Aleo Foundation Checklist 1:  [Delegate Aleo credits from Foundation funding address to a Validator's bonding address](#bonding-process-and-checklist-for-the-foundation)
@@ -9,6 +15,44 @@ To fund, delegate, and bond validators, use this checklist of checklists and the
 - [ ] Validator Entity Checklist 2: [Start and run a bonded validator `snarkOS` node](#starting-the-bonded-validator-node)
 - [ ] Aleo Foundation Checklist 2: Verify validator committe members' nodes live on CanaryNet
 - [ ] Validator Entity Checklist 3:  Monitor validator sync and block production and client sync live on CanaryNet
+
+## Bonding Process and Checklist for the Foundation
+
+Here is the checklist for the Foundation to bond in a set of validators and boostrap CanaryNet with the required members.
+
+- [ ] [Gather the list of validator teams](#gathering-validator-entities) who are to participate in CanaryNet
+- [ ] [Record the address](#gather-validator-addresses) of each validator
+- [ ] [Generate](#generate-delegator-addresses) a unique Foundation funding address for each validator
+- [ ] [Transfer required funds](#fund-each-delegator-address) (`10_000_000_000_000` microcredits) from the unique Foundation funding address using the [`fund_delegator.sh`](#the-fund_delegatorsh-script) script.
+- [ ] Verify the Foundation funding address received the credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
+- [ ] Fund the validator `200_000_000` microcredits address using the [`fund_validator.sh`](#the-fund_validatorsh-script) script
+- [ ] Verify the validator address received the 200 credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
+- [ ] After all balances have been verified, delegate from each unique funding address `10_000_000_000_000` microcredits to each validator bonding address using [`delegate_to_validator.sh`](#the-delegate_to_validatorsh-script)
+- [ ] Verify each validator bonding address received the delegated credits on-chain using [`verify_delegation.sh`](#the-verify_delegationsh-script) 
+- [ ] Notify each validator their bonding addresses have received the delegated credits
+
+## Bonding Process for the Validator Entity 
+
+Here is the checklist for the validator entity who wants to participate in the CanaryNet committee using a validator node.
+
+### Off-chain Pre-Checklist
+- [ ] Contact Aleo Foundation and indicate you wish to run a Validator on CanaryNet
+- [ ] Allocate compute resources for the nodes you wish to run on CanaryNet
+- [ ] Clone and build `snarkOS` from the `AleoNet` repository with the release tag specified by the Aleo Foundation 
+- [ ] Generate validator and withdrawal keys and provide them to the Aleo Foundation
+- [ ] Deploy and configure the `snarkOS` binary on your nodes' compute resources
+- [ ] Notify Aleo Foundation that your nodes are ready
+
+### Bonding Your Validator
+
+- [ ] Using the [`verify_funds.sh`](#the-verify_fundssh-script) script, Verify your validator addresses have been funded (delegated to) by the Aleo Foundation
+- [ ] Using the [`bond_validator.sh`](#the-bond_validatorsh-script) script, bond your validators using your validator addresses and withdrawal address
+- [ ] Using the [`verify_validator_bonding.sh`](#the-verify_validator_bondingsh-script) script, verify your validator addresses have the minimum balance bonded
+- [ ] Start your validator nodes
+
+----
+
+# Full Details
 
 Use the above checklists as the process for funding and bonding validators.  The Foundation Checklist needs to happen first, followed by the others.
 
@@ -40,21 +84,6 @@ A single Aleo address can only delegate to *one* validator bonding address.  For
 #### For the Validator Entity:
 
 After the Foundation has delegated the required funds to your validator bonding address, you may begin the process of bonding and starting your validator.
-
-## Bonding Process and Checklist for the Foundation
-
-Here is the checklist for the Foundation to bond in a set of validators and boostrap CanaryNet with the required members.
-
-- [ ] [Gather the list of validator teams](#gathering-validator-entities) who are to participate in CanaryNet
-- [ ] [Record the address](#gather-validator-addresses) of each validator
-- [ ] [Generate](#generate-delegator-addresses) a unique Foundation funding address for each validator
-- [ ] [Transfer required funds](#fund-each-delegator-address) (`10_000_000_000_000` microcredits) from the unique Foundation funding address using the [`fund_delegator.sh`](#the-fund_delegatorsh-script) script.
-- [ ] Verify the Foundation funding address received the credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
-- [ ] Fund the validator `200_000_000` microcredits address using the [`fund_validator.sh`](#the-fund_validatorsh-script) script
-- [ ] Verify the validator address received the 200 credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
-- [ ] After all balances have been verified, delegate from each unique funding address `10_000_000_000_000` microcredits to each validator bonding address using [`delegate_to_validator.sh`](#the-delegate_to_validatorsh-script)
-- [ ] Verify each validator bonding address received the delegated credits on-chain using [`verify_delegation.sh`](#the-verify_delegationsh-script) 
-- [ ] Notify each validator their bonding addresses have received the delegated credits
 
 ### Gathering Validator Entities
 
@@ -100,21 +129,6 @@ These keys and accounts are just examples and not real accounts.  They are valid
 ### Verify Delegations
 
 ### Notify Validators of Delegations
-
-## Bonding Process for the Validator Entity 
-
-Here is the checklist for the validator entity who wants to participate in the CanaryNet committee using a validator node.
-
-- [ ] Contact Aleo Foundation and indicate you wish to run a Validator on CanaryNet
-- [ ] Allocate compute resources for the nodes you wish to run on CanaryNet
-- [ ] Clone and build `snarkOS` from the `AleoNet` repository with the release tag specified by the Aleo Foundation 
-- [ ] Generate validator and withdrawal keys and provide them to the Aleo Foundation
-- [ ] Deploy and configure the `snarkOS` binary on your nodes' compute resources
-- [ ] Notify Aleo Foundation that your nodes are ready
-- [ ] Using the [`verify_funds.sh`](#the-verify_fundssh-script) script, Verify your validator addresses have been funded (delegated to) by the Aleo Foundation
-- [ ] Using the [`bond_validator.sh`](#the-bond_validatorsh-script) script, bond your validators using your validator addresses and withdrawal address
-- [ ] Using the [`verify_validator_bonding.sh`](#the-verify_validator_bondingsh-script) script, verify your validator addresses have the minimum balance bonded
-- [ ] Start your validator nodes
 
 ## Starting the Bonded Validator Node
 
