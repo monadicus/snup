@@ -16,7 +16,7 @@ AMOUNT=$3
 COMMISSION=$4
 
 # Execute the command
-$SNARKOS_PATH developer execute credits.aleo bond_validator \
+$SNARKOS_PATH/snarkos developer execute credits.aleo bond_validator \
  --private-key "$VALIDATOR_PRIVATE_KEY" \
  --query "$NETWORK_NODE_URL" \
  --broadcast "$NETWORK_NODE_URL/canary/transaction/broadcast" \
