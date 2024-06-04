@@ -93,25 +93,58 @@ Here is the checklist for the validator entity who wants to participate in the C
 
 ## Starting the Bonded Validator Node
 
+# `snup`'s Scripts to Facilitate Funding, Bonding, and Delegation
+
+Below is a collection of `bash` scripts to accomplish all we're trying to do here.  First let's start with the script that all of the scripts include and source to set up and verify the enviroment for CanaryNet transactions, the `environmnet.sh` script.
+
+## The [`environment.sh`](../scripts/environment.sh) Script
+
+See:  [`environment.sh`](../scripts/environment.sh)
+
+For all of this to work, we need to first clone and build snarkOS from the [AleoNet github project](https://github.com/AleoNet/snarkOS).  Aleo Foundation will likely provide a specific release tag to use for the specific version of snarkOS that is running CanaryNet.  Make sure you use the release tag or specific revision they specify.
+
+This script assumes that you've check out and built snarkOS in a directory parallel to the `snups` directory.
+
+This script sets SNARKOS_BIN and NETWORK_NODE_URL environment variables.  It then checks if NETWORK_NODE_URL is set. If not, it prints an error message and exits with status 1.  It also makes sure the snarkOS binary exists and is executable.  
+
+If the NETWORK_NODE_URL is valid, it will report that it successfully connected and retrieved the genesis block.  This means you good to go.
+
+
 ## Foundation Funding and Delegation Scripts
 
 ### The `fund_validator.sh` Script
 
+See:  [`fund_validator.sh`](../scripts/fund_validator.sh)
+
 ### The `fund_delegator.sh` Script
+
+See:  [`fund_delegator.sh`](../scripts/fund_delegator.sh)
 
 ### The `verify_balance.sh` Script
 
-### The `delegate_to_validator.sh` Script
+See:  [`verify_balance.sh`](../scripts/verify_balance.sh)
+
+### The `verify_balance.sh` Script
+
+See:  [`verify_balance.sh`](../scripts/verify_balance.sh)
 
 ### The `verify_delegation.sh` Script
+
+See:  [`verify_delegation.sh`](../scripts/verify_delegation.sh)
 
 ## Validator Entity Bonding Scripts
 
 ### The `verify_funds.sh` Script
 
+See:  [`verify_funds.sh`](../scripts/verify_funds.sh)
+
 ### The `bond_validator.sh` Script
 
+See:  [`bond_validator.sh`](../scripts/bond_validator.sh)
+
 ### The `verify_validator_bonding.sh` Script
+
+See:  [`verify_validator_bonding.sh`](../scripts/verify_validator_bonding.sh)
 
 ## Suggested Validator `snarkOS` Management Scripts
 
