@@ -80,7 +80,7 @@ Use the [`fund_delegator.sh`](../scripts/fund_delegator.sh) script.
 Example:
 
 ``` 
-$ fund_delegator.sh \
+$ ./fund_delegator.sh \
     APrivateKey1zkpHawWywic4aEHCN9cexUA1trb7voc23fXe2vH8DrfonES \
     aleo1rzq3lwwd4ycdqm3y5h9pet2n0rn4wmuagmgsmfhp48nrcl0mx5gq6g480s \
     10_000_000_000_000  
