@@ -4,7 +4,7 @@
 
 To fund, delegate, and bond validators, use this checklist of checklists and their specific scripts:
 
-- [ ] Aleo Foundation Checklist 1:  [Delegate from the Aleo credits from the Foundation to a Validator's bonding address](#bonding-process-and-checklist-for-the-foundation)
+- [ ] Aleo Foundation Checklist 1:  [Delegate Aleo credits from Foundation funding address to a Validator's bonding address](#bonding-process-and-checklist-for-the-foundation)
 - [ ] Validator Entity Checklist 1:  [Bond a validator using it's bonding address and withdrawal address](#bonding-process-for-the-validator-entity)
 - [ ] Validator Entity Checklist 2: [Start and run a bonded validator `snarkOS` node](#starting-the-bonded-validator-node)
 - [ ] Aleo Foundation Checklist 2: Verify validator committe members' nodes live on CanaryNet
