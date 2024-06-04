@@ -65,7 +65,7 @@ Gather the IP addresses and the machine specs for each of the validator entity's
 
 ### Gather Validator Addresses
 
-Each validator a team wishes to run on CanaryNet must have a valid Aleo address.  Record this address for each validator node.  You will use this address to fund with 200 credits for operation and you will delegate 10_000_000 credits to this address.
+Each validator on CanaryNet must have a valid Aleo address.  Record this address for each validator node.  You will use this address to fund with 200 credits for operation and you will delegate 10_000_000 credits to this address.
 
 ### Generate Delegator Addresses
 
