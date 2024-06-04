@@ -44,7 +44,7 @@ Here is the checklist for the validator entity who wants to participate in the C
 - [ ] Generate validator and withdrawal keys and provide them to the Aleo Foundation
 - [ ] Deploy and configure the `snarkOS` binary on your nodes' compute resources
 - [ ] Notify Aleo Foundation that your nodes are ready
-### VAlidator On-Chain Checklist:  Bonding Your Validator
+### Validator On-Chain Checklist:  Bonding Your Validator
 - [ ] Using the [`verify_funds.sh`](#the-verify_fundssh-script) script, Verify your validator addresses have been funded (delegated to) by the Aleo Foundation
 - [ ] Using the [`bond_validator.sh`](#the-bond_validatorsh-script) script, bond your validators using your validator addresses and withdrawal address
 - [ ] Using the [`verify_validator_bonding.sh`](#the-verify_validator_bondingsh-script) script, verify your validator addresses have the minimum balance bonded
