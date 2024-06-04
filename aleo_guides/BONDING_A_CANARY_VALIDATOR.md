@@ -45,11 +45,10 @@ After the Foundation has delegated the required funds to your validator bonding 
 
 Here is the checklist for the Foundation to bond in a set of validators and boostrap CanaryNet with the required members.
 
-- [ ] Gather the list of validator teams who are to participate in CanaryNet
-- [ ] Determine the number of validators each team will run.
-- [ ] For each validator a team will run, record their validator address to which Foundation will delegate required credits.
-- [ ] Generate a unique Foundation funding address for each new validator
-- [ ] Transfer required funds (`10_000_000_000_000` microcredits) from the unique Foundation funding address using the [`fund_delegator.sh`](#the-fund_delegatorsh-script) script.
+- [ ] [Gather the list of validator teams](#gathering-validator-entities) who are to participate in CanaryNet
+- [ ] [Record the address](#gather-validator-addresses) of each validator
+- [ ] [Generate](#generate-delegator-addresses) a unique Foundation funding address for each validator
+- [ ] [Transfer required funds](#fund-each-delegator-address) (`10_000_000_000_000` microcredits) from the unique Foundation funding address using the [`fund_delegator.sh`](#the-fund_delegatorsh-script) script.
 - [ ] Verify the Foundation funding address received the credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
 - [ ] Fund the validator `200_000_000` microcredits address using the [`fund_validator.sh`](#the-fund_validatorsh-script) script
 - [ ] Verify the validator address received the 200 credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
