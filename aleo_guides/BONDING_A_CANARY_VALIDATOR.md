@@ -50,9 +50,9 @@ Here is the checklist for the Foundation to bond in a set of validators and boos
 - [ ] For each validator a team will run, record their bonding address to which Foundation will delegate required credits.
 - [ ] Generate a unique funding address for each validator bonding address
 - [ ] Fund the validator address using the [`fund_validator.sh`](#the-fund_validatorsh-script) script
-- [ ] Fund each unique Foundation funding address with `10_001_000_000_000`` microcredits using the [`fund_delegator.sh`](#the-fund_delegatorsh-script) script.
+- [ ] Fund each unique Foundation funding address with `10_001_000_000_000` microcredits using the [`fund_delegator.sh`](#the-fund_delegatorsh-script) script.
 - [ ] Verify the funding address re3ceived the credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
-- [ ] After all balances have been verified, delegate from each unique funding address `10_001_000_000_000` credits to each validator bonding address using [`delegate_to_validator.sh`](#the-delegate_to_validatorsh-script)
+- [ ] After all balances have been verified, delegate from each unique funding address `10_001_000_000_000` microcredits to each validator bonding address using [`delegate_to_validator.sh`](#the-delegate_to_validatorsh-script)
 - [ ] Verify each validator bonding address received the delegated credits on-chain using [`verify_delegation.sh`](#the-verify_delegationsh-script) 
 - [ ] Notify each validator their bonding addresses have received the delegated credits
 
