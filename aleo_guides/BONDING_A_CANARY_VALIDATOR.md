@@ -2,11 +2,11 @@
 
 *NOTE:  This document is not specific to `snarkops`.  It is intended for the Aleo CanaryNet community members who are running generic `snarkOS` validator and nodes unmanaged by `snarkops`.*
 
----
-
 # tl;dr
 
 Note:  If you want all the hows and whys, go to the [Full Details](#full-details) section.  
+
+## Overall Process for Both Foundation and Community Validators
 
 To fund, delegate, and bond validators, use this checklist of checklists and their specific scripts:
 
@@ -20,10 +20,13 @@ To fund, delegate, and bond validators, use this checklist of checklists and the
 
 Here is the checklist for the Foundation to bond in a set of validators and boostrap CanaryNet with the required members.
 
+### Foundation Off-Chain Pre-Checklist
 - [ ] [Gather the list of validator teams](#gathering-validator-entities) who are to participate in CanaryNet
 - [ ] [Record the address](#gather-validator-addresses) of each validator
 - [ ] [Generate](#generate-delegator-addresses) a unique Foundation funding address for each validator
+### Foundation On-Chain Funding Checklist
 - [ ] [Transfer required funds](#fund-each-delegator-address) (`10_000_000_000_000` microcredits) from the unique Foundation funding address using the [`fund_delegator.sh`](#the-fund_delegatorsh-script) script.
+
 - [ ] Verify the Foundation funding address received the credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
 - [ ] Fund the validator `200_000_000` microcredits address using the [`fund_validator.sh`](#the-fund_validatorsh-script) script
 - [ ] Verify the validator address received the 200 credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
@@ -32,7 +35,6 @@ Here is the checklist for the Foundation to bond in a set of validators and boos
 - [ ] Notify each validator their bonding addresses have received the delegated credits
 
 ## Bonding Process for the Validator Entity 
-
 Here is the checklist for the validator entity who wants to participate in the CanaryNet committee using a validator node.
 
 ### Off-chain Pre-Checklist
@@ -42,9 +44,7 @@ Here is the checklist for the validator entity who wants to participate in the C
 - [ ] Generate validator and withdrawal keys and provide them to the Aleo Foundation
 - [ ] Deploy and configure the `snarkOS` binary on your nodes' compute resources
 - [ ] Notify Aleo Foundation that your nodes are ready
-
-### Bonding Your Validator
-
+### VAlidator On-Chain Checklist:  Bonding Your Validator
 - [ ] Using the [`verify_funds.sh`](#the-verify_fundssh-script) script, Verify your validator addresses have been funded (delegated to) by the Aleo Foundation
 - [ ] Using the [`bond_validator.sh`](#the-bond_validatorsh-script) script, bond your validators using your validator addresses and withdrawal address
 - [ ] Using the [`verify_validator_bonding.sh`](#the-verify_validator_bondingsh-script) script, verify your validator addresses have the minimum balance bonded
