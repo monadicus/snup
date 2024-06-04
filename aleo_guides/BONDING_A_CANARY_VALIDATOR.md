@@ -63,11 +63,36 @@ Create a list of all the teams who wish to participate in CanaryNet.  This would
 
 Gather the IP addresses and the machine specs for each of the validator entity's nodes.  You will need to identify which nodes are a validator and which ones are clients.  Each validator should have a public address.  You will use these public validator addresses when funding and delegating to the validator so their nodes can participate in the CanaryNet committee.
 
-### Gather Bonding Addresses
+### Gather Validator Addresses
+
+Each validator a team wishes to run on CanaryNet must have a valid Aleo address.  Record this address for each validator node.  You will use this address to fund with 200 credits for operation and you will delegate 10_000_000 credits to this address.
 
 ### Generate Delegator Addresses
 
+using `snarkos account new`, generate new Aleo addresses for the Foundation and record them.  You will need one new address for each validator you wish to delegate to.  These are called delegator addresses.  One delegator address can only delegate to one address at a time.  It is important that you keep the private keys recorded for each delegator address.
+
 ### Fund Each Delegator Address 
+
+Once you have created the required delegator addresses, you will need to transfer Foundation funds into each delegator address.  The minimum amount for a validator to operate is 10_000_000 credits (i.e., 10_000_000_000_000 microcredits). 
+
+Use the [`fund_delegator.sh`](../scripts/fund_delegator.sh) script.  
+
+Example:
+
+``` 
+$ fund_delegator.sh \
+    APrivateKey1zkpHawWywic4aEHCN9cexUA1trb7voc23fXe2vH8DrfonES \
+    aleo1rzq3lwwd4ycdqm3y5h9pet2n0rn4wmuagmgsmfhp48nrcl0mx5gq6g480s \
+    10_000_000_000_000  
+```
+
+The first argument is the Foundation's private key containing the source funds for all delegators.
+
+The second argument is the delegator account into which we are placing the funds to be delegated to a validator.
+
+The last argument is 10 million credits in the form of microcredits.
+
+These keys and accounts are just examples and not real accounts.  They are valid but unused.
 
 ### Verify Delegator Balances
 
@@ -106,9 +131,15 @@ For all of this to work, we need to first clone and build snarkOS from the [Aleo
 
 This script assumes that you've check out and built snarkOS in a directory parallel to the `snups` directory.
 
-This script sets SNARKOS_BIN and NETWORK_NODE_URL environment variables.  It then checks if NETWORK_NODE_URL is set. If not, it prints an error message and exits with status 1.  It also makes sure the snarkOS binary exists and is executable.  
+This script sets SNARKOS_BIN and NETWORK_NODE_URL environment variables.  
 
-If the NETWORK_NODE_URL is valid, it will report that it successfully connected and retrieved the genesis block.  This means you good to go.
+SNARKOS_BIN is the path to the `snarkOS` binary, including the name of the binary itself.  
+
+NETWORK_NODE_URL is a URL of a valid running CanaryNet client or validator node.  This node will be used to execute all transactions initiated by these scripts.  
+
+It then checks if NETWORK_NODE_URL is set. If not, it prints an error message and exits with status 1.  It also makes sure the snarkOS binary exists and is executable.  
+
+If the NETWORK_NODE_URL is valid, it will report that it successfully connected and retrieved the genesis block.  This means you are good to go.
 
 
 ## Foundation Funding and Delegation Scripts
