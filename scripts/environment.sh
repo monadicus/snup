@@ -10,6 +10,13 @@ export SNARKOS_BIN="../../snarkOS/target/release/snarkos"
 #export NETWORK_NODE_URL="http://99.48.167.129:3030"
 export NETWORK_NODE_URL="http://localhost:3030"
 
+# Function to print log with timestamp
+log() {
+    local message=$1
+    local logfile=$2
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $message" | tee -a "$logfile"
+}
+
 # Verify that all environment variables are set
 if [ -z "$SNARKOS_BIN" ]; then
     echo "Error: SNARKOS_BIN is not set."
