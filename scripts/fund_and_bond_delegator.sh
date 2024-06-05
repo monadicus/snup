@@ -23,9 +23,9 @@ mkdir -p ./fundings
 LOG=./fundings/${VALIDATOR_NAME}_funding.log
 
 # Generate a new address using the snarkOS binary
-log "Generating a new address using the snarkOS binary..." $LOG
+log "Generating a new delegate address using the snarkOS binary..." $LOG
 new_account_output=$($SNARKOS_BIN account new)
-log "New address generated." $LOG
+log "New delegate address generated." $LOG
 
 # Extract the new private key, view key, and address from the output
 log "Extracting the new private key, view key, and address from the output..." $LOG
@@ -39,6 +39,9 @@ log "Generated new account:" $LOG
 log "  New Delegator Private Key: $NEW_PRIVATE_KEY" $LOG
 log "  New Delegator View Key: $NEW_VIEW_KEY" $LOG
 log "  New Delegator Address: $DELEGATOR_ADDRESS" $LOG
+
+log "Saving the new delegate key to ./fundings/${VALIDATOR_NAME}_delegate.key..." $LOG
+echo $new_account_output >> ./fundings/${VALIDATOR_NAME}_delegate.key
 
 # Check the balance of the Foundation's account
 log "Checking the balance of the Foundation's account..." $LOG
@@ -74,6 +77,9 @@ log "  Delegator Withdraw Private Key: $DELEGATOR_WITHDRAW_PRIVATE_KEY" $LOG
 log "  Delegator Withdraw View Key: $DELEGATOR_WITHDRAW_VIEW_KEY" $LOG
 log "  Delegator Withdraw Address: $DELEGATOR_WITHDRAW_ADDRESS" $LOG
 
+log "Saving the new delegate withdrawal key to ./fundings/${VALIDATOR_NAME}_delegate_withdrawal.key..." $LOG
+echo $new_account_output >> ./fundings/${VALIDATOR_NAME}_delegate_withdrawal.key
+
 # Transfer the amount to the new DELEGATOR_ADDRESS
 log "Transferring $AMOUNT to the new delegator address..." $LOG
 $SNARKOS_BIN developer execute credits.aleo transfer_public \
@@ -88,7 +94,7 @@ log "Transfered $AMOUNT to Delegator address $DELEGATOR_ADDRESS." $LOG
 
 # Wait for the transfer to complete by checking the balance of the DELEGATOR_ADDRESS
 log "Waiting for the transfer to complete..." $LOG
-sleep 8
+sleep 4
 while true; do
     delegator_balance_response=$(curl -s ${NETWORK_NODE_URL}/canary/program/credits.aleo/mapping/account/${DELEGATOR_ADDRESS})
     delegator_balance=$(echo $delegator_balance_response | sed 's/"//g' | sed 's/u64//')
@@ -100,8 +106,8 @@ while true; do
         break
     fi
     
-    log "Transfer not completed yet. Current balance: ${delegator_balance:-0}. Checking again in 5 seconds..." $LOG
-    sleep 5
+    log "Transfer not completed yet. Current balance: ${delegator_balance:-0}. Checking again in 3 seconds..." $LOG
+    sleep 3
 done
 
 # Execute the fund delegator command
