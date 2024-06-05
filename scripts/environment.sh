@@ -7,7 +7,8 @@
 export SNARKOS_BIN="../../snarkOS/target/release/snarkos"
 # This uses MONADIC.US's public canary network node.
 # You can replace this with your own network node URL or use it if you like.
-export NETWORK_NODE_URL="http://99.48.167.129:3030"
+#export NETWORK_NODE_URL="http://99.48.167.129:3030"
+export NETWORK_NODE_URL="http://localhost:3030"
 
 # Verify that all environment variables are set
 if [ -z "$SNARKOS_BIN" ]; then
