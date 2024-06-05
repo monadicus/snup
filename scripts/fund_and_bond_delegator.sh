@@ -87,8 +87,8 @@ while true; do
         break
     fi
     
-    echo "Transfer not completed yet. Current balance: ${delegator_balance:-0}. Checking again in 1 second..."
-    sleep 1
+    echo "Transfer not completed yet. Current balance: ${delegator_balance:-0}. Checking again in 5 seconds..."
+    sleep 5
 done
 
 # Execute the fund delegator command
