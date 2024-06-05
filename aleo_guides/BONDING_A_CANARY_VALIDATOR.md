@@ -11,10 +11,10 @@ Note:  If you want all the hows and whys, go to the [Full Details](#full-details
 To fund, delegate, and bond validators, use this checklist of checklists and their specific scripts:
 
 - [ ] Aleo Foundation Checklist 1:  [Delegate Aleo credits from Foundation funding address to a Validator's bonding address](#bonding-process-and-checklist-for-the-foundation)
-- [ ] Validator Entity Checklist 1:  [Bond a validator using it's bonding address and withdrawal address](#bonding-process-for-the-validator-entity)
-- [ ] Validator Entity Checklist 2: [Start and run a bonded validator `snarkOS` node](#starting-the-bonded-validator-node)
-- [ ] Aleo Foundation Checklist 2: Verify validator committe members' nodes live on CanaryNet
-- [ ] Validator Entity Checklist 3:  Monitor validator sync and block production and client sync live on CanaryNet
+- [ ] Validator Checklist 1:  [Bond a validator using it's bonding address and withdrawal address](#bonding-process-for-the-validator-entity)
+- [ ] Validator Checklist 2: [Start and run a bonded validator `snarkOS` node](#starting-the-bonded-validator-node)
+- [ ] Aleo Foundation Checklist 2: Verify validator committee member's nodes live on CanaryNet
+- [ ] Validator Checklist 3:  Monitor validator sync and block production and client sync live on CanaryNet
 
 ## Bonding Process and Checklist for the Foundation
 
@@ -24,9 +24,9 @@ Here is the checklist for the Foundation to bond in a set of validators and boos
 - [ ] [Gather the list of validator teams](#gathering-validator-entities) who are to participate in CanaryNet
 - [ ] [Record the address](#gather-validator-addresses) of each validator
 - [ ] [Generate](#generate-delegator-addresses) a unique Foundation funding address for each validator
+
 ### Foundation On-Chain Funding Checklist
 - [ ] [Transfer required funds](#fund-each-delegator-address) (`10_000_000_000_000` microcredits) from the unique Foundation funding address using the [`fund_delegator.sh`](#the-fund_delegatorsh-script) script.
-
 - [ ] Verify the Foundation funding address received the credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
 - [ ] Fund the validator `200_000_000` microcredits address using the [`fund_validator.sh`](#the-fund_validatorsh-script) script
 - [ ] Verify the validator address received the 200 credits on-chain using the [`verify_balance.sh`](#the-verify_balancesh-script) script
