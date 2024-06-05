@@ -92,11 +92,11 @@ while true; do
 done
 
 # Execute the fund delegator command
-echo "Executing the fund delegator command..."
+echo "Executing the bond delegator command..."
 $SNARKOS_BIN developer execute credits.aleo bond_delegator \
  --private-key "$FOUNDATION_PRIVATE_KEY" \
  --query "$NETWORK_NODE_URL" \
  --broadcast "$NETWORK_NODE_URL/canary/transaction/broadcast" \
  --network 2 \
  "$DELEGATOR_ADDRESS" "$AMOUNT" "$DELEGATOR_WITHDRAW_ADDRESS"
-echo "Fund delegator command executed."
+echo "bond delegator command executed."
