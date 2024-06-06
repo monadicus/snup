@@ -84,91 +84,20 @@ funding_tx_id=""
 transfer_public $FOUNDATION_PRIVATE_KEY $DELEGATOR_ADDRESS $AMOUNT ${VALIDATOR_NAME}_delegator "funding_tx_id"
 log "Transfered $AMOUNT to Delegator address $DELEGATOR_ADDRESS." $LOG
 
-#$SNARKOS_BIN developer execute credits.aleo transfer_public \
-# --private-key "$FOUNDATION_PRIVATE_KEY" \
-# --query "$NETWORK_NODE_URL" \
-# --broadcast "$NETWORK_NODE_URL/canary/transaction/broadcast" \
-# --network 2 \
-# "$DELEGATOR_ADDRESS" "$AMOUNT"
-#transfer_status=$?
-#
-#if [ $transfer_status -eq 0 ]; then
-#    log "Transfered $AMOUNT to Delegator address $DELEGATOR_ADDRESS." $LOG
-#else
-#    log "FAILED:  Transfered $AMOUNT to Delegator address $DELEGATOR_ADDRESS." $LOG
-#    exit 1
-#fi
 
 # Transfer additional credits to cover fees to the new DELEGATOR_ADDRESS
 log "Transferring $FEES to the new delegator address..." $LOG
 fee_tx_id=""
 transfer_public $FOUNDATION_PRIVATE_KEY $DELEGATOR_ADDRESS $FEES ${VALIDATOR_NAME}_delegator "fee_tx_id"
 log "Transfered additional $FEES to Delegator address $DELEGATOR_ADDRESS." $LOG
-#$SNARKOS_BIN developer execute credits.aleo transfer_public \
-# --private-key "$FOUNDATION_PRIVATE_KEY" \
-# --query "$NETWORK_NODE_URL" \
-# --broadcast "$NETWORK_NODE_URL/canary/transaction/broadcast" \
-# --network 2 \
-# "$DELEGATOR_ADDRESS" "$FEES"
-#transfer_status=$?
 
-#if [ $transfer_status -eq 0 ]; then 
-#    log "Transfered additional $FEES to Delegator address $DELEGATOR_ADDRESS." $LOG
-#else
-#    log "FAILED:  Transfered additional $FEES to Delegator address $DELEGATOR_ADDRESS." $LOG
-#    exit 1
-#fi
-
-# Transfer additional credits to DELEGATOR_WITHDRAWAL_ADDRESS
 log "Transferring $FEES to the new delegator withdrawal address..." $LOG
 withdraw_fee_tx_id=""
 transfer_public $FOUNDATION_PRIVATE_KEY $DELEGATOR_WITHDRAW_ADDRESS $FEES ${VALIDATOR_NAME}_delegator_withdraw "withdraw_fee_tx_id"
 log "Transfered additional $FEES to delegator withdrawal address $DELEGATOR_WITHDRAW_ADDRESS" $LOG
-#$SNARKOS_BIN developer execute credits.aleo transfer_public \
-#    --private-key "$FOUNDATION_PRIVATE_KEY" \
-#    --query "$NETWORK_NODE_URL" \
-#    --broadcast "$NETWORK_NODE_URL/canary/transaction/broadcast" \
-#    --network 2 \
-#    "$DELEGATOR_WITHDRAW_ADDRESS" "$FEES"
-#transfer_status=$?
-
-#if [ $transfer_status -eq 0 ]; then
-#    log "Transfered additional $FEES to delegator withdrawal address $DELEGATOR_WITHDRAW_ADDRESS" $LOG
-#else
-#    log "FAILED:  Transfer of additional $FEES to delegator withdrawal address $DELEGATOR_WITHDRAW_ADDRESS" $LOG
-#    exit 1
-#fi 
-
-
-# Wait for the transfer to complete by checking the balance of the DELEGATOR_ADDRESS
-#log "Waiting for the transfer to complete..." $LOG
-#while true; do
-#    delegator_balance_response=$(curl -s ${NETWORK_NODE_URL}/canary/program/credits.aleo/mapping/account/${DELEGATOR_ADDRESS})
-#    delegator_balance=$(echo $delegator_balance_response | sed 's/"//g' | sed 's/u64//')
-#    # log "Delegator's account balance: ${delegator_balance:-0}" $LOG
-#    
-#    if [ -n "$delegator_balance" ] && [ "$(echo "$delegator_balance >= $CLEAN_AMOUNT" | bc)" -eq 1 ]; then
-#        log "Confirmed balance of $delegator_balance in Delegator address $DELEGATOR_ADDRESS" $LOG
-#        break
-#    fi
-#    
-    # log "Transfer not completed yet. Current balance: ${delegator_balance:-0}. Checking again in 3 seconds..." $LOG
-#    sleep 1
-#done
-
-#log "Waiting for the delegator withdraw fee transfer to complete..." $LOG
-#while true; do
-#    delegator_withdraw_address_balance=$(get_balance $DELEGATOR_WITHDRAW_ADDRESS)
-#    if [ -n "$delegator_withdraw_address_balance" ] && [ "$(echo "$delegator_withdraw_address_balance >= $CLEAN_FEES" | bc)" -eq 1 ]; then
-#        log "Confirmed balance of $delegator_withdraw_address_balance in withdraw address $DELEGATOR_WITHDRAW_ADDRESS" $LOG
-#        break
-#    fi
-#    sleep 1
-#done
 
 delegator_balance=$(get_balance $DELEGATOR_ADDRESS)
 delegator_withdraw_address_balance=$(get_balance $DELEGATOR_WITHDRAW_ADDRESS)
-
 
 # Execute the fund delegator command
 log "Executing the bond_public command..." $LOG
