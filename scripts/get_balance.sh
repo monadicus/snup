@@ -9,8 +9,6 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-# Assign input argument to variable
 ADDRESS=$1
 
-# Check the balance for the provided address
-curl ${NETWORK_NODE_URL}/canary/program/credits.aleo/mapping/account/${ADDRESS}
+echo "$(get_balance $ADDRESS)"
