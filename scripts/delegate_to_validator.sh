@@ -34,9 +34,9 @@ withdraw_balance=$(get_balance $WITHDRAW_ADDRESS)
 log "Checking the balance of the Validator's account pre-delegation..." $LOG
 validator_balance=$(get_balance $VALIDATOR_ADDRESS)
 
-log "Delegator's account balance: ${delegator_balance:-0}" $LOG
-log "Withdraw account balance: ${withrdraw_balance:-0}" $LOG
-log "Validator's account balance: ${validator_balance::-0}" $LOG
+log "    Delegator's balance: ${delegator_balance:-0}" $LOG
+log "       Withdraw balance: ${withdraw_balance:-0}" $LOG
+log "    Validator's balance: ${validator_balance:-0}" $LOG
 
 
 # If the balance is null or less than the amount to fund, exit with an error
@@ -48,24 +48,21 @@ log "Sufficient funds available in the Delegators's account." $LOG
 
 # Execute the fund delegator command
 log "Delegating:  Executing the bond_public command..." $LOG
-$SNARKOS_BIN developer execute credits.aleo bond_public \
-    --private-key "$DELEGATOR_PRIVATE_KEY" \
-    --query "$NETWORK_NODE_URL" \
-    --broadcast "$NETWORK_NODE_URL/canary/transaction/broadcast" \
-    --network 2 \
-    "$VALIDATOR_ADDRESS" "$WITHDRAW_ADDRESS" "$AMOUNT"
-bond_status=$?
-if [ $bond_status -eq 0 ]; then
-    log "Completed bond_pubic of $AMOUNT for $VALIDATOR_ADDRESS with withdraw address $WITHDRAW_ADDRESS" $LOG
-else 
-    log "FAILED:  bond_pubic execute failed." $LOG
-    exit 1
-fi
 
+TX_ID="TX_ID"
+
+bond_pubic $DELEGATOR_PRIVATE_KEY $VALIDATOR_ADDRESS $WITHDRAW_ADDRESS $AMOUNT$ $NAME $TX_ID
+
+delegator_balance=$(get_balance $DELEGATOR_ADDRESS)
+withdraw_address_balance=$(get_balance $WITHDRAW_ADDRESS)
 validator_address_balance=$(get_balance $VALIDATOR_ADDRESS)
 
-log "TYPE        | ADDRESS                                                         | BALANCE " $LOG
+
+
+log "      TYPE | ADDRESS                                                         | BALANCE " $LOG
 log "--------------------------------------------------------------------------------------------------------" $LOG
-log " DELEGATOR  | $DELEGATOR_ADDRESS | $delegator_balance " $LOG
-log " WITHDRAW   | $WITHDRAW_ADDRESS | $withdraw_address_balance " $LOG 
-log " VALIDATOR  | $VALIDATOR_ADDRESS | $validator_address_balance " $LOG 
+log " DELEGATOR | $DELEGATOR_ADDRESS | $delegator_balance " $LOG
+log " WITHDRAW  | $WITHDRAW_ADDRESS | $withdraw_address_balance " $LOG 
+log " VALIDATOR | $VALIDATOR_ADDRESS | $validator_address_balance " $LOG 
+log "--------------------------------------------------------------------------------------------------------" $LOG
+log "   bond_public Transaction ID:  $TX_ID" $LOG
