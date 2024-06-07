@@ -11,7 +11,7 @@ Today, MONADIC.US's `snarkops` is enabled to support Aleo `snarkOS` nodes and re
 
 - [Running and Bonding a Validator on Aleo's CanaryNet](aleo_guides/BONDING_A_CANARY_VALIDATOR.md)
 
-<!-->
+<!-- >
 - [Running a Validator in Production](aleo_guides/PRODUCTION_VALIDATORS.md)
-<!-->
+<! -->
 
