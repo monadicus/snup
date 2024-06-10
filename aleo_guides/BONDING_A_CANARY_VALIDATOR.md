@@ -342,7 +342,6 @@ See:  [`bond_validator.sh`](../scripts/bond_validator.sh)
 
 Once a validator has been delegated or owns 10 million or more Aleo credits, to enter the validator committee, the validator must bond at least 10 million credits to thier validator address.  
 
-
 In the example below, the key and addresses are only examples.  Do not use these keys as they are fake.
 
 Example:
@@ -354,7 +353,7 @@ $ ./bond_validator.sh \
     aleo1cvln9yys2hwlptq3sjc5kv5ugvcjxsq5nap6gq4r77ev8wv6859qh839ml \  # The withdrawal address to be used when unbonding
     10000000000000u64  \                                               # 10_000_000 Aleo Credits in microcredits 
     100u8 \                                                            # The percent (0-100) of the earned commission the validator witholds
-    monadicus \                                                        # The one-word unique name for the validator
+    monadicus                                                          # The one-word unique name for the validator
 ```
 
 
@@ -468,18 +467,3 @@ Output:
 [2024-06-10 15:05:09] Transfer confirmed on-chain.
 [2024-06-10 15:05:09] END Transfer to monadicus 
 ```
-
-## Validator Entity Bonding Scripts
-
-### The `bond_validator.sh` Script
-
-See:  [`bond_validator.sh`](../scripts/bond_validator.sh)
-
-
-## Suggested Validator `snarkOS` Management Scripts
-
-
-
-
-
-
