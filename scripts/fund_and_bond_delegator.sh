@@ -47,11 +47,11 @@ log "Saving the new delegate key to ./accounts/${VALIDATOR_NAME}_delegate.key...
 save_account ${VALIDATOR_NAME}_delegate $DELEGATOR_PRIVATE_KEY $DELEGATOR_VIEW_KEY $DELEGATOR_ADDRESS
 
 # Check the balance of the funding's account
-log "Checking the balance of the funding's account..." $LOG
+log "Checking the balance of the funders's account..." $LOG
 funding_balance_response=$(curl -s ${NETWORK_NODE_URL}/canary/program/credits.aleo/mapping/account/${FUNDING_ADDRESS})
 funding_balance=$(echo $funding_balance_response | sed 's/"//g' | sed 's/u64//')
 
-log "funding's account balance: ${funding_balance:-0}" $LOG
+log "Funder's account balance: $(to_credits ${funding_balance:-0})" $LOG
 
 # If the balance is null or less than the amount to fund, exit with an error
 if [ -z "$funding_balance" ] || [ "$(echo "$funding_balance < $CLEAN_AMOUNT" | bc)" -eq 1 ]; then
