@@ -14,4 +14,6 @@ TO_ADDRESS=$2
 AMOUNT=$3
 NAME=$4
 
-transfer_public $PRIVATE_KEY $TO_ADDRESS $AMOUNT "./transfers/${NAME}_transfer.log"
+TX_ID="TX_ID"
+
+transfer_public $PRIVATE_KEY $TO_ADDRESS $AMOUNT $NAME $TX_ID

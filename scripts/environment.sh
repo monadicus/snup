@@ -137,7 +137,7 @@ save_account() {
     local account_file="./accounts/${NAME}.key"
     # Print the new account details
     log "  " $account_file
-    log "       TYPE | VALUE:" $account_file
+    log "        TYPE | VALUE:" $account_file
     log "------------------------------------------------------------------------" $account_file
     log " Private Key | $NEW_PRIVATE_KEY" $account_file
     log "    View Key | $NEW_VIEW_KEY" $account_file

@@ -1,0 +1,15 @@
+[2024-06-10 15:43:05]    
+[2024-06-10 15:43:05]    
+[2024-06-10 15:43:05] BEGIN transfer_public to monadicus_delegator_withdraw 
+[2024-06-10 15:43:05]    
+[2024-06-10 15:43:05] Balance before transfer: 0Å (0)
+[2024-06-10 15:43:05] Transferring 150Å (150000000u64)  
+[2024-06-10 15:43:05]   From Private Key:  APrivateKey1zkp8ib2ZLsTSXxEPfwQ89ivgxNzLQ3yjjK2Hpdyc4JadHF9
+[2024-06-10 15:43:05]         To Address:  aleo13re02lya0suh3tlau3303xvjkjnscfqhwy7dzs8t7xnzlrkzkypsaf3fka ...
+[2024-06-10 15:43:05]    
+[2024-06-10 15:43:11] Executed transfer_public 150Å (150000000u64) to aleo13re02lya0suh3tlau3303xvjkjnscfqhwy7dzs8t7xnzlrkzkypsaf3fka
+[2024-06-10 15:43:11]   monadicus_delegator_withdraw Transaction:  at1wte48ave9kwqq4dvzye0z48lfl8cfntjg7s9tlfz5tg536jn059q2auce8 
+[2024-06-10 15:43:11] Waiting for the transfer to complete...
+[2024-06-10 15:43:17] Confirmed balance of 150Å in address aleo13re02lya0suh3tlau3303xvjkjnscfqhwy7dzs8t7xnzlrkzkypsaf3fka
+[2024-06-10 15:43:17] Transfer confirmed on-chain.
+[2024-06-10 15:43:17] END Transfer to monadicus_delegator_withdraw 
