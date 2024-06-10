@@ -245,15 +245,17 @@ get_delegated() {
         echo "Usage: get_delegated <ADDRESS>"
         return 1
     fi
-    get_mapping "delegated" $1
+    local mapping=$(get_mapping "delegated" $1)
+    local balance=$(echo $mapping | grep -oP '(?<=microcredits: )\d+u64' | sed 's/u64//')
+    echo ${balance:-0}
 }
 
 
-get_bonded_balance() {
+get_bonded() {
     # Check the number of arguments
     if [ $# -ne 1 ]; then
         echo "Error: Incorrect number of arguments."
-        echo "Usage: get_bonded_balance <DELEGATOR_ADDRESS>"
+        echo "Usage: get_bonded <DELEGATOR_ADDRESS>"
         return 1
     fi
     local DELEGATOR_ADDRESS=$1
@@ -294,7 +296,7 @@ bond_public() {
     log "BEGIN bond_public to $NAME " $bonding_log
     log "   " $bonding_log
     # Fetch the data using curl
-    local pre_balance=$(get_bonded_balance $DELEGATOR_ADDRESS)
+    local pre_balance=$(get_bonded $DELEGATOR_ADDRESS)
     log "Delegators's bonded balance before transfer: $(to_credits $pre_balance) ($pre_balance)" $bonding_log
     log "  Delegating $(to_credits $AMOUNT) ($AMOUNT) to Validator $NAME " $bonding_log
     log "     From Private Key:  $PRIVATE_KEY" $bonding_log
@@ -323,7 +325,7 @@ bond_public() {
     log "Waiting for the bonding to complete..." $bonding_log
     local clean_amount=$(clean $AMOUNT)
     while true; do
-        local balance=$(get_bonded_balance $DELEGATOR_ADDRESS)
+        local balance=$(get_bonded $DELEGATOR_ADDRESS)
         if [ -n "$balance" ] && [ "$(echo "$balance >= $pre_balance + $clean_amount" | bc)" -eq 1 ]; then
             log "Confirmed balance of $balance in address $WITHDRAW_ADDRESS" $bonding_log
             break
@@ -367,7 +369,7 @@ bond_validator() {
     log "BEGIN bond_validator to $NAME " $bonding_log
     log "   " $bonding_log
     # Fetch the data using curl
-    local microcredits=$(get_bonded_balance $VALIDATOR_ADDRESS)
+    local pre_balance=$(get_bonded $VALIDATOR_ADDRESS)
     log "Bonded Balance before transfer: $microcredits" $bonding_log
     # Transfer additional credits to DELEGATOR_WITHDRAWAL_ADDRESS
     log "  Bonding $AMOUNT for Validator $NAME " $bonding_log
@@ -381,7 +383,7 @@ bond_validator() {
         --query "$NETWORK_NODE_URL" \
         --broadcast "$NETWORK_NODE_URL/$NETWORK_NAME/transaction/broadcast" \
         --network $NETWORK_ID \
-        "$VALIDATOR_ADDRESS" "$WITHDRAW_ADDRESS" "$AMOUNT" "$COMMISSION")
+        "$WITHDRAW_ADDRESS" "$AMOUNT" "$COMMISSION")
     local bond_validator_status=$?
 
     if [ $bond_validator_status -eq 0 ]; then
@@ -397,10 +399,13 @@ bond_validator() {
     # Wait for the transfer to complete by checking the balance of the DELEGATOR_ADDRESS
     log "Waiting for the transfer to complete..." $bonding_log
     local clean_amount=$(clean $AMOUNT)
+    log "pre_balance: $pre_balance " $bonding_log
+    log "clean_amount: $pre_balance " $bonding_log
     while true; do
-        local balance=$(get_bonded_balance $VALIDATOR_ADDRESS)
+        local balance=$(clean $(get_delegated $VALIDATOR_ADDRESS))
+        log "balance delegated: $(get_delegated $VALIDATOR_ADDRESS) " $bonding_log
         if [ -n "$balance" ] && [ "$(echo "$balance >= $pre_balance + $clean_amount" | bc)" -eq 1 ]; then
-            log "Confirmed bonded amount of $balance for address $WITHDRAW_ADDRESS" $bonding_log
+            log "Confirmed delegated amount of $balance for address $VALIDATOR_ADDRESS" $bonding_log
             break
         fi
         sleep 1

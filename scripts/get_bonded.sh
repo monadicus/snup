@@ -9,4 +9,4 @@ if [ "$#" -ne 1 ]; then
 fi
 
 ADDRESS=$1
-echo $(get_bonded_balance $ADDRESS)
+echo $(get_bonded $ADDRESS)

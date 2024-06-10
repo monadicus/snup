@@ -28,20 +28,17 @@ log "  " $LOG
 # Generate a new address using the snarkOS binary
 log "Generating a new delegate address..." $LOG
 new_account_output=$($SNARKOS_BIN account new)
-log "New delegate address generated." $LOG
 log "  " $LOG
 # Extract the new private key, view key, and address from the output
-log "Extracting the new private key, view key, and address from the output..." $LOG
 DELEGATOR_PRIVATE_KEY=$(echo "$new_account_output" | grep 'Private Key' | awk '{print $3}')
 DELEGATOR_VIEW_KEY=$(echo "$new_account_output" | grep 'View Key' | awk '{print $3}')
 DELEGATOR_ADDRESS=$(echo "$new_account_output" | grep 'Address' | awk '{print $2}')
-log "New private key, view key, and address extracted." $LOG
 
 # Print the new account details
 log "Generated new account:" $LOG
-log "  New Delegator Private Key: $DELEGATOR_PRIVATE_KEY" $LOG
-log "  New Delegator View Key: $DELEGATOR_VIEW_KEY" $LOG
-log "  New Delegator Address: $DELEGATOR_ADDRESS" $LOG
+log "  Delegator Private Key: $DELEGATOR_PRIVATE_KEY" $LOG
+log "  Delegator View Key: $DELEGATOR_VIEW_KEY" $LOG
+log "  Delegator Address: $DELEGATOR_ADDRESS" $LOG
 
 log "Saving the new delegate key to ./accounts/${VALIDATOR_NAME}_delegate.key..." $LOG
 save_account ${VALIDATOR_NAME}_delegate $DELEGATOR_PRIVATE_KEY $DELEGATOR_VIEW_KEY $DELEGATOR_ADDRESS
@@ -58,12 +55,9 @@ if [ -z "$funding_balance" ] || [ "$(echo "$funding_balance < $CLEAN_AMOUNT" | b
     log "Error: Insufficient funds in the funding's account." $LOG
     exit 1
 fi
-log "Sufficient funds available in the funding's account." $LOG
 
 # Generate a second set of private key, view key, and address
-log "Generating a second set of private key, view key, and address using the snarkOS binary..." $LOG
 new_withdraw_account_output=$($SNARKOS_BIN account new)
-log "Second set of private key, view key, and address generated." $LOG
 
 # Extract the new private key, view key, and address from the output
 DELEGATOR_WITHDRAW_PRIVATE_KEY=$(echo "$new_withdraw_account_output" | grep 'Private Key' | awk '{print $3}')
@@ -72,9 +66,9 @@ DELEGATOR_WITHDRAW_ADDRESS=$(echo "$new_withdraw_account_output" | grep 'Address
 
 # Print the second set of account details
 log "Generated withdraw account:" $LOG
-log "  Delegator Withdraw Private Key: $DELEGATOR_WITHDRAW_PRIVATE_KEY" $LOG
-log "  Delegator Withdraw View Key: $DELEGATOR_WITHDRAW_VIEW_KEY" $LOG
-log "  Delegator Withdraw Address: $DELEGATOR_WITHDRAW_ADDRESS" $LOG
+log "  Withdraw Private Key: $DELEGATOR_WITHDRAW_PRIVATE_KEY" $LOG
+log "  Withdraw View Key: $DELEGATOR_WITHDRAW_VIEW_KEY" $LOG
+log "  Withdraw Address: $DELEGATOR_WITHDRAW_ADDRESS" $LOG
 
 log "Saving the new delegate withdrawal key to ./accounts/${VALIDATOR_NAME}_delegate_withdraw.key..." $LOG
 save_account "${VALIDATOR_NAME}_delegate_withdraw" $DELEGATOR_WITHDRAW_PRIVATE_KEY $DELEGATOR_WITHDRAW_VIEW_KEY $DELEGATOR_WITHDRAW_ADDRESS
@@ -96,6 +90,11 @@ log "Transferring $(to_credits $FEES)($FEES) to the new delegator withdrawal add
 withdraw_fee_tx_id=""
 transfer_public $FUNDING_PRIVATE_KEY $DELEGATOR_WITHDRAW_ADDRESS $FEES ${VALIDATOR_NAME}_delegator_withdraw "withdraw_fee_tx_id"
 log "Transfered additional $(to_credits $FEES) ($FEES) to delegator withdrawal address $DELEGATOR_WITHDRAW_ADDRESS" $LOG
+
+log "Transferring $(to_credits $FEES)($FEES) to the validator..." $LOG
+validator_fee_tx_id=""
+transfer_public $FUNDING_PRIVATE_KEY $VALIDATOR_ADDRESS $FEES ${VALIDATOR_NAME} "validator_fee_tx_id"
+log "Transfered additional $(to_credits $FEES) ($FEES) to validator address $DELEGATOR_WITHDRAW_ADDRESS" $LOG
 
 delegator_balance=$(get_balance $DELEGATOR_ADDRESS)
 delegator_withdraw_address_balance=$(get_balance $DELEGATOR_WITHDRAW_ADDRESS)
